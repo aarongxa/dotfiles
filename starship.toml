@@ -1,0 +1,77 @@
+# ~/.config/starship.toml
+# General settings
+add_newline = false
+command_timeout = 500
+palette = "pastel_neo_tokyo"
+
+# Format for the prompt (mimicking root@hostname:/path#)
+format = "$username:$directory$git_branch $git_status ❯ "
+
+# Modules
+[username]
+style_user = "bold blue"
+style_root = "bold red"
+format = "[$user]($style)"
+show_always = true  # Always show username
+
+[hostname]
+ssh_only = false  # Show hostname always, not just SSH
+format = "[$hostname]($style)"
+style = "bold purple"
+disabled = false
+
+[directory]
+style = "bold cyan"
+truncation_length = 3
+truncate_to_repo = false  # Show full path, not just repo
+format = "[$path]($style)"
+home_symbol = "~"
+
+[git_branch]
+symbol = " "
+style = "bold yellow"
+format = " [$symbol$branch]($style)"
+
+[git_status]
+style = "bold red"
+format = "([$all_status$ahead_behind]($style))"
+
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "⚡️ "
+discharging_symbol = "💀 "
+[[battery.display]]
+threshold = 10
+style = "bold red"
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
+
+[aws]
+format = "[$symbol$profile ($region) |]($style) "
+style = "bold yellow"
+symbol = ""
+#symbol = "\uf270 "
+
+[python]
+symbol = "🐍 "
+format = "[$symbol${pyenv_prefix}(${version})($virtualenv)]($style) "
+style = "bold green"
+
+[nodejs]
+symbol = " "
+format = "[$symbol($version)]($style) "
+style = "bold green"
+
+# Neo Tokyo Color Scheme
+[palettes.pastel_neo_tokyo]
+blue = "#8bc4d1"
+green = "#c8ffbb"
+yellow = "#e6c17c"
+red = "#ff9fb8"
+purple = "#b588c0"
+cyan = "#65d9c9"
+white = "#f0f0f0"
+[line_break]
+disabled = true
+

@@ -111,4 +111,4 @@ y2tx() {
 
 
 # Buffer API — social media scheduling
-export BUFFER_ACCESS_TOKEN="3DLcHTYl01tavEw1DWtrVW9YOPUAvdPcP-T4v7Ja7Kl"
+# export BUFFER_ACCESS_TOKEN="your-token-here"

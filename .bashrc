@@ -5,7 +5,7 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ] && [ -n "${BASH_VERSION}" ] && [ -z "${ZSH_
 fi
 
 # Created by `pipx` on 2023-09-08 18:50:14
-export PATH="$PATH:/Users/aaron/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # Only set PS1 when actually running bash (not zsh)
 # In zsh, starship will handle the prompt
@@ -14,7 +14,7 @@ if [ -n "${BASH_VERSION}" ] && [ -z "${ZSH_VERSION}" ]; then
     if command -v starship &> /dev/null; then
         eval "$(starship init bash)"
     else
-        export PS1="\[$(tput setaf 39)\]\u\[$(tput setaf 45)\]@\[$(tput setaf 51)\]mac \[$(tput setaf 195)\]\w \[$(tput sgr0)\]$ "
+        export PS1="\[$(tput setaf 39)\]\u\[$(tput setaf 45)\]@\[$(tput setaf 51)\]\h \[$(tput setaf 195)\]\w \[$(tput sgr0)\]$ "
     fi
 fi
 

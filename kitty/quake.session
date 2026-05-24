@@ -1,0 +1,9 @@
+# Kitty Quake-style terminal session
+# Launch with: kitty --session quake.session
+
+# Create a single window at the top of the screen
+launch
+
+
+
+

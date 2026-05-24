@@ -1,5 +1,5 @@
 # uv
-export PATH="/Users/aaron/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Terminal detection and TERM configuration for kitty and ghostty
 # This must be in .zshenv because it's sourced first (works with sh syntax)

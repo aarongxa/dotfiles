@@ -24,6 +24,7 @@ cd ~/dotfiles
 | **GitHub** | `gh/` | gh CLI config + hosts |
 | **AWS** | `asp-tmux-fzf.sh` | Profile/region selector with fzf + tmux |
 | **Tools** | `clssh.sh`, `tmux-dashboard.sh` | Cluster SSH, dashboard layout |
+| **macOS** | `macos/` (`desktop.sh`, WhichSpace) | Named desktops: Zen, Cursor, Ghostty, Studio, Office, Music |
 
 ## tmux Configuration
 
@@ -51,6 +52,13 @@ cd ~/dotfiles
 ### macOS
 - Kitty quake mode (`kitty-quake.sh`) uses AppleScript — macOS only
 - Homebrew shellenv loaded automatically in `.zprofile`
+- Named desktops (`macos/desktop.sh`) talk to [WhichSpace](https://github.com/gechr/WhichSpace) — see `macos/README.md`
+
+```bash
+desktop.sh doctor        # WhichSpace + Space count + apps
+desktop.sh apply         # label Spaces: Zen / Cursor / Term / …
+desk zen                 # switch and focus Zen Browser
+```
 
 ### Debian/Ubuntu
 
@@ -93,6 +101,7 @@ dotfiles/
 ├── clssh.sh             # Cluster SSH launcher
 ├── tmux-dashboard.sh    # Multi-pane dashboard layout
 ├── kitty-quake.sh       # macOS-only quake terminal toggle
+├── macos/               # WhichSpace named desktops + Raycast scripts
 ├── btop/                # btop system monitor config
 ├── cava/                # cava audio visualizer configs
 ├── gh/                  # GitHub CLI config

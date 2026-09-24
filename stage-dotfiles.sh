@@ -68,9 +68,7 @@ if $IS_MACOS; then
 fi
 
 # ── Files to symlink to $HOME/.config ──────
-declare -A SPECIAL_FILES=(
-    ["starship.toml"]="$HOME_DIR/.config/starship.toml"
-)
+# (plain assignments — macOS /bin/bash is 3.2, no associative arrays)
 
 # ── Directories to symlink to $HOME/.config ─
 CONFIG_DIRS=(
@@ -84,6 +82,7 @@ CONFIG_DIRS=(
 
 # macOS-only configs (skipped on Linux)
 if $IS_MACOS; then
+    CONFIG_DIRS+=("macos")
     # macmon.json — macOS system monitor (would go to its own path)
     :
 fi
@@ -146,16 +145,43 @@ for script in "${SCRIPTS[@]}"; do
     $DRY_RUN || chmod +x "$src"
 done
 
+# -- macOS desktop helper (subdir → ~/desktop.sh) --
+if $IS_MACOS; then
+    echo ""
+    echo -e "${GREEN}[macos scripts → ~]${NC}"
+    src="$SCRIPT_DIR/macos/desktop.sh"
+    tgt="$HOME_DIR/desktop.sh"
+    if [[ -f "$src" ]]; then
+        backup_file "$tgt"
+        create_symlink "$src" "$tgt"
+        $DRY_RUN || chmod +x "$src"
+        $DRY_RUN || chmod +x "$SCRIPT_DIR"/macos/raycast/*.sh 2>/dev/null || true
+    else
+        echo -e "  ${RED}✗ missing: $src${NC}"
+    fi
+
+    src="$SCRIPT_DIR/macos/wallpaper-uhd.sh"
+    tgt="$HOME_DIR/wallpaper-uhd.sh"
+    if [[ -f "$src" ]]; then
+        backup_file "$tgt"
+        create_symlink "$src" "$tgt"
+        $DRY_RUN || chmod +x "$src"
+    else
+        echo -e "  ${RED}✗ missing: $src${NC}"
+    fi
+fi
+
 # -- Special files --
 echo ""
 echo -e "${GREEN}[special → ~/.config]${NC}"
-for src_name in "${!SPECIAL_FILES[@]}"; do
-    src="$SCRIPT_DIR/$src_name"
-    tgt="${SPECIAL_FILES[$src_name]}"
-    [[ -f "$src" ]] || { echo -e "  ${RED}✗ missing: $src${NC}"; continue; }
+src="$SCRIPT_DIR/starship.toml"
+tgt="$HOME_DIR/.config/starship.toml"
+if [[ -f "$src" ]]; then
     backup_file "$tgt"
     create_symlink "$src" "$tgt"
-done
+else
+    echo -e "  ${RED}✗ missing: $src${NC}"
+fi
 
 # -- Config directories --
 echo ""
@@ -183,6 +209,10 @@ echo ""
 echo -e "  ${BLUE}Next steps:${NC}"
 echo -e "    tmux:   tmux source-file ~/.tmux.conf"
 echo -e "    zsh:    source ~/.zshrc"
+if $IS_MACOS; then
+    echo -e "    spaces: desktop.sh doctor && desktop.sh apply"
+    echo -e "    raycast: add ~/.config/macos/raycast as a Script Commands folder"
+fi
 if $IS_LINUX; then
     echo ""
     echo -e "  ${BLUE}Debian prerequisites (run once):${NC}"

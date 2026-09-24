@@ -69,6 +69,20 @@ if command -v starship &> /dev/null && [[ "$TERM" != "dumb" ]]; then
     [[ -z "$PROMPT" ]] || [[ -z "${PROMPT// }" ]] && PROMPT="$(starship prompt 2>/dev/null)" || PROMPT="$FALLBACK_PROMPT"
 fi
 
+# Named macOS desktops via WhichSpace (see macos/README.md)
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    if [[ -x "$HOME/desktop.sh" ]]; then
+        desk() { "$HOME/desktop.sh" "$@"; }
+    elif [[ -x "$HOME/.config/macos/desktop.sh" ]]; then
+        desk() { "$HOME/.config/macos/desktop.sh" "$@"; }
+    fi
+    if [[ -x "$HOME/wallpaper-uhd.sh" ]]; then
+        wallpaper-uhd() { "$HOME/wallpaper-uhd.sh" "$@"; }
+    elif [[ -x "$HOME/.config/macos/wallpaper-uhd.sh" ]]; then
+        wallpaper-uhd() { "$HOME/.config/macos/wallpaper-uhd.sh" "$@"; }
+    fi
+fi
+
 # y2tx - YouTube to MP4 downloader with optional time range and output filename
 # Usage: y2tx VIDEO_URL [TIME_RANGE] [OUTPUT_FILENAME]
 y2tx() {

@@ -23,7 +23,7 @@ cd ~/dotfiles
 | **Monitoring** | `btop/`, `cava/`, `wtf/` | System monitor, audio vis, dashboard |
 | **GitHub** | `gh/` | gh CLI config + hosts |
 | **AWS** | `asp-tmux-fzf.sh` | Profile/region selector with fzf + tmux |
-| **Tools** | `clssh.sh`, `tmux-dashboard.sh` | Cluster SSH, dashboard layout |
+| **Tools** | `clssh.sh`, `tmux-dashboard.sh`, `pdfc.sh` | Cluster SSH, dashboard layout, PDF compression |
 | **macOS** | `macos/` (`desktop.sh`, WhichSpace) | Named desktops: Zen, Cursor, Ghostty, Studio, Office, Music |
 
 ## tmux Configuration
@@ -46,6 +46,33 @@ cd ~/dotfiles
 | `Ctrl-t` | SSH to host (prompt) |
 | `Ctrl-e` | Cluster SSH (prompt) |
 | `Alt-→/←` | Next/previous window |
+
+## PDF Compression (pdfc)
+
+Compress PDF files with Ghostscript.
+
+**Requirement**: `brew install ghostscript`
+
+**Install**: Symlink to a directory in your PATH  
+```bash
+ln -s "$PWD/pdfc.sh" /opt/homebrew/bin/pdfc
+```
+
+**Usage**:  
+```bash
+pdfc file.pdf [ebook|printer|prepress|screen|custom]
+```
+
+Running without arguments shows an interactive menu with quality options.
+
+**Output**: `file_compressed.pdf` (original file is never modified)
+
+**Quality Levels**:
+- `ebook`: good quality, smaller (default)
+- `printer`: high quality, 300 dpi
+- `prepress`: best quality, keeps color profiles
+- `screen`: smallest, 72 dpi
+- `custom`: pick a custom dpi value
 
 ## Platform Notes
 
@@ -99,6 +126,7 @@ dotfiles/
 ├── stage-dotfiles.sh    # Symlink installer
 ├── asp-tmux-fzf.sh      # AWS profile/region selector
 ├── clssh.sh             # Cluster SSH launcher
+├── pdfc.sh              # PDF compression with Ghostscript
 ├── tmux-dashboard.sh    # Multi-pane dashboard layout
 ├── kitty-quake.sh       # macOS-only quake terminal toggle
 ├── macos/               # WhichSpace named desktops + Raycast scripts
